@@ -12,6 +12,7 @@
 		744903621AF12F2400ADAF02 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744903611AF12F2400ADAF02 /* Images.xcassets */; };
 		744903651AF12F2400ADAF02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 744903631AF12F2400ADAF02 /* Main.storyboard */; };
 		744903711AF12F2400ADAF02 /* TimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744903701AF12F2400ADAF02 /* TimerTests.swift */; };
+		7449037B1AF12F7B00ADAF02 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7449037A1AF12F7B00ADAF02 /* Timer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		7449036A1AF12F2400ADAF02 /* TimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7449036F1AF12F2400ADAF02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744903701AF12F2400ADAF02 /* TimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerTests.swift; sourceTree = "<group>"; };
+		7449037A1AF12F7B00ADAF02 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				7449035D1AF12F2400ADAF02 /* AppDelegate.swift */,
 				7449035F1AF12F2400ADAF02 /* ViewController.swift */,
+				7449037A1AF12F7B00ADAF02 /* Timer.swift */,
 				744903611AF12F2400ADAF02 /* Images.xcassets */,
 				744903631AF12F2400ADAF02 /* Main.storyboard */,
 				7449035B1AF12F2400ADAF02 /* Supporting Files */,
@@ -208,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7449037B1AF12F7B00ADAF02 /* Timer.swift in Sources */,
 				744903601AF12F2400ADAF02 /* ViewController.swift in Sources */,
 				7449035E1AF12F2400ADAF02 /* AppDelegate.swift in Sources */,
 			);
