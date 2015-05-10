@@ -16,10 +16,13 @@ public class Stopwatch: NSObject {
 	
 	var calculateDuration: () -> NSTimeInterval = durationZero
 	
+	/// The current value of the stopwatch
 	public var duration: NSTimeInterval {
 		return calculateDuration()
 	}
 	
+	
+	/// Start counting
 	public func start() {
 		if let pauseTime = pauseTime {
 			startTime = startTime!.dateByAddingTimeInterval(NSDate().timeIntervalSinceDate(pauseTime))
@@ -30,6 +33,7 @@ public class Stopwatch: NSObject {
 		calculateDuration = durationWhenTicking
 	}
 	
+	/// Pauses the stopwatch. When paused the duration will be hold until start() is called again
 	public func pause() {
 		pauseTime = NSDate()
 		calculateDuration = durationWhenPaused
@@ -43,6 +47,7 @@ public class Stopwatch: NSObject {
 		}
 	}
 	
+	/// Resets the duration of the stopwatch
 	public func reset() {
 		pauseTime = nil
 		startTime = nil

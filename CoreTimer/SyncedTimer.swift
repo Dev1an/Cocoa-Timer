@@ -12,6 +12,7 @@ public protocol Syncable {
 	var syncOffset: NSTimeInterval { get }
 }
 
+/// A timer that runs in sync with a given time interval
 public class SyncedTimer: UnsyncedTimer {
 	var syncedObject: Syncable
 	

@@ -8,11 +8,14 @@
 
 import Cocoa
 
+/// A stopwatch with the ablility to save lap times
 public class LappedStopwatch: Stopwatch {
 	
+	/// The different lap times
 	public dynamic var laps = [NSTimeInterval]()
 	var lastLapStart: NSDate?
 	
+	/// Start a new lap
 	public func newLap() {
 		if isTicking {
 			if let reference = lastLapStart {

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A basic timer wich can be paused and resumed
 public class UnsyncedTimer: NSObject {
 	var timer: NSTimer?
 	let interval: NSTimeInterval
@@ -29,10 +30,12 @@ public class UnsyncedTimer: NSObject {
 		timer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: "callSignalFunction", userInfo: nil, repeats: true)
 	}
 	
+	/// Starts or resumes the timer
 	public func start() {
 		createTimer()
 	}
 	
+	/// Pauses the timer
 	public func pause() {
 		timer?.invalidate()
 	}

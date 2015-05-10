@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A time formatter with milliseconds
 public class TimedIntervalFormatter: NSDateComponentsFormatter {
 	public var allowTenthSeconds = true
 	
