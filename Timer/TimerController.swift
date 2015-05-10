@@ -7,16 +7,19 @@
 //
 
 import Cocoa
+import CoreTimer
 
 class ViewController: NSViewController {
 
 	var timer = Timer(duration: NSTimeInterval(73))
-	@IBOutlet var timeLabel: NSTextField!
-	@IBOutlet var timeLabelFormatter: NSDateFormatter!
+	var isTiming = false
+	
+	@IBOutlet var timeLabel: SwipableField!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		updateTimeLabel()
+		timeLabel.swipeDelegate = self
 		// Do any additional setup after loading the view.
 	}
 	
@@ -44,8 +47,23 @@ class ViewController: NSViewController {
 		}
 	}
 
-	@IBAction func start(sender: AnyObject) {
-		timer.startTiming()
+	@IBAction func start(sender: NSButton) {
+		if isTiming {
+			timer.pauseTiming()
+			sender.title = "start"
+			isTiming = false
+		} else {
+			timer.startTiming()
+			sender.title = "pause"
+			isTiming = true
+		}
+	}
+}
+
+extension ViewController: SwipeControlDelegate {
+	func change(value: CGFloat) {
+		timer.duration = timer.duration.advancedBy(Double(value))
+		updateTimeLabel()
 	}
 }
 
