@@ -20,6 +20,9 @@ class StopwatchViewController: NSViewController {
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		timer = SyncedTimer(interval: 0.1, syncedObject: stopwatch, callback: timerCallback)
+		if let savedStopwatch = NSUserDefaults.standardUserDefaults().objectForKey("Saved stopwatch") as? NSData {
+			stopwatch = NSKeyedUnarchiver.unarchiveObjectWithData(savedStopwatch) as! LappedStopwatch
+		}
 	}
 	
 	// MARK: Button actions

@@ -16,11 +16,31 @@ public class Stopwatch: NSObject {
 	
 	var calculateDuration: () -> NSTimeInterval = durationZero
 	
+	override public init() {
+		super.init()
+	}
+	
+	required public init(coder aDecoder: NSCoder) {
+		super.init()
+		startTime = aDecoder.decodeObjectForKey("Start time") as? NSDate
+		pauseTime = aDecoder.decodeObjectForKey("Pause time") as? NSDate
+		if startTime != nil && pauseTime == nil {
+			calculateDuration = durationWhenTicking
+		} else if startTime == nil {
+			calculateDuration = Stopwatch.durationZero
+		} else {
+			calculateDuration = durationWhenPaused
+		}
+	}
+	
 	/// The current value of the stopwatch
 	public var duration: NSTimeInterval {
 		return calculateDuration()
 	}
 	
+	public func getStart() -> NSDate? {
+		return startTime
+	}
 	
 	/// Start counting
 	public func start() {
@@ -71,4 +91,12 @@ extension Stopwatch: Syncable {
 	public var referenceDate: NSDate {
 		return startTime ?? NSDate()
 	}
+}
+
+extension Stopwatch: NSCoding {
+	public func encodeWithCoder(aCoder: NSCoder) {
+		aCoder.encodeObject(startTime, forKey: "Start time")
+		aCoder.encodeObject(pauseTime, forKey: "Pause time")
+	}
+	
 }

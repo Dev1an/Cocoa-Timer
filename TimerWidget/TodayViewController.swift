@@ -12,64 +12,64 @@ import CoreTimer
 
 class TodayViewController: NSViewController, NCWidgetProviding {
 
+	@IBOutlet var timeLabel: NSTextField!
+	@IBOutlet var startButton: NSButton!
+	let formatter = TimedIntervalFormatter()
+	
     override var nibName: String? {
         return "TodayViewController"
     }
+	
+	var stopwatch = Stopwatch()
+	var timer: UnsyncedTimer!
 
+	override init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+		timer = SyncedTimer(interval: 0.1 , syncedObject: stopwatch, callback: updateLabel)
+		if let savedStopwatch = NSUserDefaults.standardUserDefaults().objectForKey("Saved stopwatch") as? NSData {
+			stopwatch = NSKeyedUnarchiver.unarchiveObjectWithData(savedStopwatch) as! Stopwatch
+		}
+	}
+
+	required init?(coder: NSCoder) {
+	    super.init(coder: coder)
+	}
+
+	func updateLabel() {
+		timeLabel.stringValue = formatter.stringFromTimeInterval(stopwatch.duration)!
+	}
+	
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
         // Update your data and prepare for a snapshot. Call completion handler when you are done
         // with NoData if nothing has changed or NewData if there is new data since the last
         // time we called you
-        completionHandler(.NoData)
+		updateLabel()
+        completionHandler(.NewData)
     }
-
-	var timer = Timer(duration: NSTimeInterval(73))
-	var isTiming = false
-	
-	@IBOutlet var timeLabel: SwipableField!
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		updateTimeLabel()
-		timeLabel.swipeDelegate = self
-		// Do any additional setup after loading the view.
-	}
-	
-	override func viewWillAppear() {
-		timer.signalFunction = self.updateTimeLabel
-	}
-	
-	override func viewWillDisappear() {
-		timer.signalFunction = nil
-	}
-	
-	func updateTimeLabel() {
-		var interval = timer.getTime()
-		let time = (
-			NSString(format: "%02d", Int(round(interval % 60))),
-			NSString(format: "%02d", Int(interval/60) % 60),
-			NSString(format: "%02d", Int(interval / 3600))
-		)
-		timeLabel.stringValue = "\(time.2):\(time.1):\(time.0)"
-	}
 	
 	@IBAction func start(sender: NSButton) {
-		if isTiming {
-			timer.pauseTiming()
-			sender.title = "start"
-			isTiming = false
+		stopwatch.toggleState()
+		if stopwatch.isTicking {
+			timer.start()
+			sender.title = "Pause"
 		} else {
-			timer.startTiming()
-			sender.title = "pause"
-			isTiming = true
+			timer.pause()
+			sender.title = "Start"
 		}
+		let encodedStopwatch = NSKeyedArchiver.archivedDataWithRootObject(stopwatch)
+		NSUserDefaults.standardUserDefaults().setObject(encodedStopwatch, forKey: "Saved stopwatch")
+		NSUserDefaults.standardUserDefaults().synchronize()
+	}
+	@IBAction func reset(sender: AnyObject) {
+		stopwatch.reset()
+		startButton.title = "Start"
 	}
 
-}
-
-extension TodayViewController: SwipeControlDelegate {
-	func change(value: CGFloat) {
-		timer.duration = timer.duration.advancedBy(Double(value))
-		updateTimeLabel()
+	override func viewDidLoad() {
+		if stopwatch.isTicking { timer.start() }
+	}
+	
+	override func viewDidDisappear() {
+		timer.pause()
 	}
 }
