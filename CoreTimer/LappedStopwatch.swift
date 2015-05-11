@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Damiaan Dufaux. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
 /// A stopwatch with the ablility to save lap times
 public class LappedStopwatch: Stopwatch {

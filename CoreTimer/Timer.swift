@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Damiaan Dufaux. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
 public class Timer: NSObject {
 	public var duration: NSTimeInterval {

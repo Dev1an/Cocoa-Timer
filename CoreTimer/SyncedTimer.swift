@@ -6,15 +6,18 @@
 //  Copyright (c) 2015 Damiaan Dufaux. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
 public protocol Syncable {
 	var syncOffset: NSTimeInterval { get }
 }
 
-/// A timer that runs in sync with a given time interval
-public class SyncedTimer: UnsyncedTimer {
+/// A timer that runs in sync with another timer
+public class SyncedTimer: UnsyncedTimer, Syncable {
 	var syncedObject: Syncable
+	public var syncOffset: NSTimeInterval {
+		return syncedObject.syncOffset
+	}
 	
 	public init(interval: NSTimeInterval, syncedObject: Syncable, callback: () -> ()) {
 		self.syncedObject = syncedObject

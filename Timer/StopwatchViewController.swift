@@ -18,7 +18,7 @@ class StopwatchViewController: NSViewController {
 	
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
-		//		timer = SyncedTimer(interval: 0.1, syncedObject: stopwatch, callback: timerCallback)
+		//		timer = SyncedTim    er(interval: 0.1, syncedObject: stopwatch, callback: timerCallback)
 		timer = UnsyncedTimer(interval: 0.02, callback: timerCallback)
 	}
 	
