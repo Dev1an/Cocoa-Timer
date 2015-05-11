@@ -14,7 +14,7 @@ public class TimedIntervalFormatter: NSDateComponentsFormatter {
 	
 	override public func stringFromTimeInterval(time: NSTimeInterval) -> String? {
 		if allowTenthSeconds {
-			let fPart = Int((time%1)*100 + 0.5)
+			let fPart = Int((time%1)*100 + 0.5) % 100
 			return super.stringFromTimeInterval(time)! + (NSString(format: ".%.2d", fPart) as String)
 		} else {
 			return super.stringFromTimeInterval(time)

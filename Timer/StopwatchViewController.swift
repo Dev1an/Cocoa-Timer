@@ -31,6 +31,7 @@ class StopwatchViewController: NSViewController {
 		timer.pause()
 		startButton.title = "Start"
 		timerCallback()
+		saveTimer()
 	}
 	@IBAction func startPause(sender: NSButton) {
 		stopwatch.toggleState()
@@ -41,7 +42,9 @@ class StopwatchViewController: NSViewController {
 			timer.pause()
 			sender.title = "Start"
 		}
+
 		timerCallback()
+		saveTimer()
 	}
 	@IBAction func newLap(sender: AnyObject) {
 		stopwatch.newLap()
@@ -49,6 +52,13 @@ class StopwatchViewController: NSViewController {
 	
 	func timerCallback() {
 		timeLabel.stringValue = formatter.stringFromTimeInterval(stopwatch.duration)!
+	}
+	
+	func saveTimer() {
+		let defaults = NSUserDefaults(suiteName: "group.devian.timer")!;
+		let encodedStopwatch = NSKeyedArchiver.archivedDataWithRootObject(stopwatch)
+		defaults.setObject(encodedStopwatch, forKey: "Saved stopwatch")
+		defaults.synchronize()
 	}
 
 	// MARK: View lifecycle

@@ -25,7 +25,7 @@ class TodayViewController: NSViewController, NCWidgetProviding {
 
 	override init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-		timer = SyncedTimer(interval: 0.1 , syncedObject: stopwatch, callback: updateLabel)
+		timer = SyncedTimer(interval: 0.02 , syncedObject: stopwatch, callback: updateLabel)
 		if let savedStopwatch = NSUserDefaults(suiteName: "group.devian.timer")!.objectForKey("Saved stopwatch") as? NSData {
 			stopwatch = NSKeyedUnarchiver.unarchiveObjectWithData(savedStopwatch) as! LappedStopwatch
 		}
@@ -67,8 +67,19 @@ class TodayViewController: NSViewController, NCWidgetProviding {
 		startButton.title = "Start"
 	}
 
+	@IBAction func update(sender: AnyObject) {
+		if stopwatch.isTicking {
+			timer.start()
+			timeLabel.stringValue = "Pause"
+		}
+	}
+	
 	override func viewDidLoad() {
-		if stopwatch.isTicking { timer.start() }
+		update(self)
+	}
+	
+	override func viewWillAppear() {
+		update(self)
 	}
 	
 	override func viewDidDisappear() {
