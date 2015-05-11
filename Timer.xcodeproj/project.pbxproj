@@ -196,12 +196,12 @@
 			children = (
 				74409EF41AFDF1E1002B76F3 /* CoreTimer.h */,
 				74409EF21AFDF1E1002B76F3 /* Supporting Files */,
-				74409F0F1AFDF210002B76F3 /* Timer.swift */,
+				74423F1C1AFFDEFE00C11FF3 /* TimedIntervalFormatter.swift */,
 				74423F1A1AFFAF0900C11FF3 /* SyncedTimer.swift */,
 				74423F1E1AFFE0D300C11FF3 /* UnsyncedTimer.swift */,
+				74409F0F1AFDF210002B76F3 /* Timer.swift */,
 				74423F131AFE832500C11FF3 /* Stopwatch.swift */,
 				74423F181AFF9C5B00C11FF3 /* LappedStopwatch.swift */,
-				74423F1C1AFFDEFE00C11FF3 /* TimedIntervalFormatter.swift */,
 			);
 			path = CoreTimer;
 			sourceTree = "<group>";

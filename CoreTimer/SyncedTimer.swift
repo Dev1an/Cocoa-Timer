@@ -9,14 +9,14 @@
 import Foundation
 
 public protocol Syncable {
-	var syncOffset: NSTimeInterval { get }
+	var referenceDate: NSDate { get }
 }
 
 /// A timer that runs in sync with another timer
 public class SyncedTimer: UnsyncedTimer, Syncable {
 	var syncedObject: Syncable
-	public var syncOffset: NSTimeInterval {
-		return syncedObject.syncOffset
+	public var referenceDate: NSDate {
+		return syncedObject.referenceDate
 	}
 	
 	public init(interval: NSTimeInterval, syncedObject: Syncable, callback: () -> ()) {
@@ -26,11 +26,11 @@ public class SyncedTimer: UnsyncedTimer, Syncable {
 	
 	public override func start() {
 		let delay: NSTimeInterval
-		let offsetNow: NSTimeInterval = NSDate().timeIntervalSinceReferenceDate % 1
-		let offsetReference = syncedObject.syncOffset
+		let offsetNow: NSTimeInterval = NSDate().timeIntervalSinceReferenceDate % interval
+		let offsetReference = syncedObject.referenceDate.timeIntervalSinceReferenceDate % interval
 		
 		if offsetNow > offsetReference {
-			delay = 1 - offsetNow + offsetReference
+			delay = interval - offsetNow + offsetReference
 		} else {
 			delay = offsetReference - offsetNow
 		}

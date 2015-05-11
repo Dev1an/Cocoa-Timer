@@ -62,8 +62,11 @@ class ViewController: NSViewController {
 
 extension ViewController: SwipeControlDelegate {
 	func change(value: CGFloat) {
-		timer.duration = timer.duration.advancedBy(Double(value))
-		updateTimeLabel()
+		let newValue = timer.duration.advancedBy(Double(value))
+		if newValue >= 0 {
+			timer.duration = timer.duration.advancedBy(Double(value))
+			updateTimeLabel()
+		}
 	}
 }
 

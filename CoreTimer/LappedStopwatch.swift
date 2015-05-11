@@ -27,4 +27,9 @@ public class LappedStopwatch: Stopwatch {
 		
 		lastLapStart = NSDate()
 	}
+	
+	public override func reset() {
+		laps.removeAll(keepCapacity: true)
+		super.reset()
+	}
 }

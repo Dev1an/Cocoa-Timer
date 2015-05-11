@@ -12,26 +12,28 @@ import CoreTimer
 class StopwatchViewController: NSViewController {
 	
 	@IBOutlet var timeLabel: NSTextField!
+	@IBOutlet var startButton: NSButton!
 	var formatter = TimedIntervalFormatter()
 	var stopwatch = LappedStopwatch()
 	var timer: UnsyncedTimer!
 	
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
-		//		timer = SyncedTim    er(interval: 0.1, syncedObject: stopwatch, callback: timerCallback)
-		timer = UnsyncedTimer(interval: 0.02, callback: timerCallback)
+		timer = SyncedTimer(interval: 0.1, syncedObject: stopwatch, callback: timerCallback)
 	}
 	
 	// MARK: Button actions
 	@IBAction func stop(sender: AnyObject) {
 		stopwatch.reset()
 		timer.pause()
+		startButton.title = "Start"
+		timerCallback()
 	}
 	@IBAction func startPause(sender: NSButton) {
 		stopwatch.toggleState()
 		if stopwatch.isTicking {
 			timer.start()
-			sender.title = "Stop"
+			sender.title = "Pause"
 		} else {
 			timer.pause()
 			sender.title = "Start"

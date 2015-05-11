@@ -68,7 +68,7 @@ public class Stopwatch: NSObject {
 }
 
 extension Stopwatch: Syncable {
-	public var syncOffset: NSTimeInterval {
-		return (startTime?.timeIntervalSinceReferenceDate ?? 0) % 1
+	public var referenceDate: NSDate {
+		return startTime ?? NSDate()
 	}
 }
