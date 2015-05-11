@@ -20,14 +20,14 @@ class TodayViewController: NSViewController, NCWidgetProviding {
         return "TodayViewController"
     }
 	
-	var stopwatch = Stopwatch()
+	var stopwatch = LappedStopwatch()
 	var timer: UnsyncedTimer!
 
 	override init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		timer = SyncedTimer(interval: 0.1 , syncedObject: stopwatch, callback: updateLabel)
-		if let savedStopwatch = NSUserDefaults.standardUserDefaults().objectForKey("Saved stopwatch") as? NSData {
-			stopwatch = NSKeyedUnarchiver.unarchiveObjectWithData(savedStopwatch) as! Stopwatch
+		if let savedStopwatch = NSUserDefaults(suiteName: "group.devian.timer")!.objectForKey("Saved stopwatch") as? NSData {
+			stopwatch = NSKeyedUnarchiver.unarchiveObjectWithData(savedStopwatch) as! LappedStopwatch
 		}
 	}
 
@@ -56,9 +56,11 @@ class TodayViewController: NSViewController, NCWidgetProviding {
 			timer.pause()
 			sender.title = "Start"
 		}
+		
+		let defaults = NSUserDefaults(suiteName: "group.devian.timer")!;
 		let encodedStopwatch = NSKeyedArchiver.archivedDataWithRootObject(stopwatch)
-		NSUserDefaults.standardUserDefaults().setObject(encodedStopwatch, forKey: "Saved stopwatch")
-		NSUserDefaults.standardUserDefaults().synchronize()
+		defaults.setObject(encodedStopwatch, forKey: "Saved stopwatch")
+		defaults.synchronize()
 	}
 	@IBAction func reset(sender: AnyObject) {
 		stopwatch.reset()

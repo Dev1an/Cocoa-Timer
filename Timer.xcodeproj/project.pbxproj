@@ -97,6 +97,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		741626461B01084500678D43 /* Timer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Timer.entitlements; sourceTree = "<group>"; };
 		74409ED81AFDECC3002B76F3 /* TimerWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimerWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		74409EDC1AFDECC3002B76F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74409EDD1AFDECC3002B76F3 /* TimerWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TimerWidget.entitlements; sourceTree = "<group>"; };
@@ -259,6 +260,7 @@
 		7449035A1AF12F2400ADAF02 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
+				741626461B01084500678D43 /* Timer.entitlements */,
 				7449035D1AF12F2400ADAF02 /* AppDelegate.swift */,
 				7449035F1AF12F2400ADAF02 /* TimerController.swift */,
 				74423F161AFE8FFA00C11FF3 /* StopwatchViewController.swift */,
@@ -421,6 +423,11 @@
 				TargetAttributes = {
 					74409ED71AFDECC3002B76F3 = {
 						CreatedOnToolsVersion = 6.3.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+						};
 					};
 					74409EEF1AFDF1E1002B76F3 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -431,6 +438,11 @@
 					};
 					744903571AF12F2400ADAF02 = {
 						CreatedOnToolsVersion = 6.3.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+						};
 					};
 					744903691AF12F2400ADAF02 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -797,6 +809,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Timer/Timer.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Timer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -808,6 +821,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Timer/Timer.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Timer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
