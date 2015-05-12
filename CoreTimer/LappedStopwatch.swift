@@ -32,4 +32,18 @@ public class LappedStopwatch: Stopwatch {
 		laps.removeAll(keepCapacity: true)
 		super.reset()
 	}
+	
+	override public init() {
+		super.init()
+	}
+
+	public required init(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		laps = aDecoder.decodeObjectForKey("Laps") as? [NSTimeInterval] ?? [NSTimeInterval]()
+	}
+	
+	public override func encodeWithCoder(aCoder: NSCoder) {
+		super.encodeWithCoder(aCoder)
+		aCoder.encodeObject(laps, forKey: "Laps")
+	}
 }
