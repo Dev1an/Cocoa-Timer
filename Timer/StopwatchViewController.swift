@@ -14,15 +14,24 @@ class StopwatchViewController: NSViewController {
 	@IBOutlet var timeLabel: NSTextField!
 	@IBOutlet var startButton: NSButton!
 	var formatter = TimedIntervalFormatter()
-	var stopwatch = LappedStopwatch()
+	dynamic var stopwatch: LappedStopwatch
 	var timer: UnsyncedTimer!
 	
 	required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		timer = SyncedTimer(interval: 0.1, syncedObject: stopwatch, callback: timerCallback)
 		if let savedStopwatch = NSUserDefaults(suiteName: "group.devian.timer")!.objectForKey("Saved stopwatch") as? NSData {
 			stopwatch = NSKeyedUnarchiver.unarchiveObjectWithData(savedStopwatch) as! LappedStopwatch
+		} else {
+			stopwatch = LappedStopwatch()
 		}
+		super.init(coder: coder)
+		
+		timer = SyncedTimer(interval: 0.1, syncedObject: stopwatch, callback: timerCallback)
+	}
+	
+	func loadStopWatch() -> LappedStopwatch? {
+		if let savedStopwatch = NSUserDefaults(suiteName: "group.devian.timer")!.objectForKey("Saved stopwatch") as? NSData {
+			return NSKeyedUnarchiver.unarchiveObjectWithData(savedStopwatch) as! LappedStopwatch
+		} else { return nil }
 	}
 	
 	// MARK: Button actions
@@ -35,19 +44,25 @@ class StopwatchViewController: NSViewController {
 	}
 	@IBAction func startPause(sender: NSButton) {
 		stopwatch.toggleState()
-		if stopwatch.isTicking {
-			timer.start()
-			sender.title = "Pause"
-		} else {
-			timer.pause()
-			sender.title = "Start"
-		}
-
-		timerCallback()
+		
+		update()
+		
 		saveTimer()
 	}
 	@IBAction func newLap(sender: AnyObject) {
 		stopwatch.newLap()
+	}
+	
+	func update() {
+		if stopwatch.isTicking {
+			timer.start()
+			startButton.title = "Pause"
+		} else {
+			timer.pause()
+			startButton.title = "Start"
+		}
+		
+		timerCallback()
 	}
 	
 	func timerCallback() {
@@ -59,34 +74,42 @@ class StopwatchViewController: NSViewController {
 		let encodedStopwatch = NSKeyedArchiver.archivedDataWithRootObject(stopwatch)
 		defaults.setObject(encodedStopwatch, forKey: "Saved stopwatch")
 		defaults.synchronize()
+		NSDistributedNotificationCenter.defaultCenter().postNotificationName("Stopwatch changed", object: "Desktop app")
 	}
 
 	// MARK: View lifecycle
-	var observer: NSObjectProtocol?
+	var occlusionObserver: NSObjectProtocol?
 	
 	override func viewWillAppear() {
 		timerCallback()
 	}
 	
 	override func viewDidAppear() {
-		if stopwatch.isTicking { timer.start() }
-		observer = NSNotificationCenter.defaultCenter().addObserverForName(NSWindowDidChangeOcclusionStateNotification, object: view.window!, queue: NSOperationQueue.mainQueue()) {
+		update()
+		occlusionObserver = NSNotificationCenter.defaultCenter().addObserverForName(NSWindowDidChangeOcclusionStateNotification, object: view.window!, queue: NSOperationQueue.mainQueue()) {
 			notification in
-			if self.view.window!.occlusionState.rawValue & NSWindowOcclusionState.Visible.rawValue == NSWindowOcclusionState.Visible.rawValue {
+			if self.view.window!.occlusionState.rawValue & NSWindowOcclusionState.Visible.rawValue == NSWindowOcclusionState.Visible.rawValue && self.stopwatch.isTicking {
 				self.timer.start()
 			} else {
 				self.timer.pause()
 			}
 		}
+		NSDistributedNotificationCenter.defaultCenter().addObserver(self, selector: "userDefaultsChanged", name: "Stopwatch changed", object: nil)
+	}
+	
+	func userDefaultsChanged() {
+		if let newStopwatch = loadStopWatch() {
+			stopwatch = newStopwatch
+			update()
+		}
 	}
 	
 	override func viewWillDisappear() {
 		timer.pause()
-			NSNotificationCenter.defaultCenter().removeObserver(observer!)
+		NSNotificationCenter.defaultCenter().removeObserver(occlusionObserver!)
+		NSDistributedNotificationCenter.defaultCenter().removeObserver(self, name: "Stopwatch changed", object: nil)
 	}
-	
-	override func viewDidLoad() {
-	}
+
 }
 
 @objc(TimeTransformer) class TimeTransformer: NSValueTransformer {

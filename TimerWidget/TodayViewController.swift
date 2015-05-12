@@ -26,6 +26,10 @@ class TodayViewController: NSViewController, NCWidgetProviding {
 	override init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		timer = SyncedTimer(interval: 0.02 , syncedObject: stopwatch, callback: updateLabel)
+		loadUserDefaultStopwatch()
+	}
+	
+	func loadUserDefaultStopwatch() {
 		if let savedStopwatch = NSUserDefaults(suiteName: "group.devian.timer")!.objectForKey("Saved stopwatch") as? NSData {
 			stopwatch = NSKeyedUnarchiver.unarchiveObjectWithData(savedStopwatch) as! LappedStopwatch
 		}
@@ -47,35 +51,45 @@ class TodayViewController: NSViewController, NCWidgetProviding {
         completionHandler(.NewData)
     }
 	
-	@IBAction func start(sender: NSButton) {
-		stopwatch.toggleState()
-		if stopwatch.isTicking {
-			timer.start()
-			sender.title = "Pause"
-		} else {
-			timer.pause()
-			sender.title = "Start"
-		}
-		
+	func saveUserDefaults() {
 		let defaults = NSUserDefaults(suiteName: "group.devian.timer")!;
 		let encodedStopwatch = NSKeyedArchiver.archivedDataWithRootObject(stopwatch)
 		defaults.setObject(encodedStopwatch, forKey: "Saved stopwatch")
 		defaults.synchronize()
+		
+		NSDistributedNotificationCenter.defaultCenter().postNotificationName("Stopwatch changed", object: "Desktop app")
+	}
+	
+	@IBAction func start(sender: NSButton) {
+		stopwatch.toggleState()
+		update(sender)
+		saveUserDefaults()
 	}
 	@IBAction func reset(sender: AnyObject) {
 		stopwatch.reset()
 		startButton.title = "Start"
+		saveUserDefaults()
 	}
 
 	@IBAction func update(sender: AnyObject) {
 		if stopwatch.isTicking {
 			timer.start()
-			timeLabel.stringValue = "Pause"
+			startButton.title = "Pause"
+		} else {
+			timer.pause()
+			startButton.title = "Start"
 		}
 	}
 	
 	override func viewDidLoad() {
 		update(self)
+		NSDistributedNotificationCenter.defaultCenter().addObserver(self, selector: "userDefaultsChanged", name: "Stopwatch changed", object: nil)
+	}
+	
+	func userDefaultsChanged() {
+		loadUserDefaultStopwatch()
+		update(self)
+		updateLabel()
 	}
 	
 	override func viewWillAppear() {

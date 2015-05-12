@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TodayViewController" customModule="TimerWidget" customModuleProvider="target">
@@ -15,18 +14,18 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView simulatedAppContext="notificationCenter" translatesAutoresizingMaskIntoConstraints="NO" id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="5" width="320" height="107"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KU6-MB-4x2">
-                    <rect key="frame" x="0.0" y="49" width="304" height="28"/>
+                    <rect key="frame" x="0.0" y="29" width="290" height="40"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Timer" id="pgq-dU-GDk">
-                        <font key="font" metaFont="system" size="23"/>
+                        <font key="font" size="38" name="HelveticaNeue-Thin"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wW5-3P-XUX">
-                    <rect key="frame" x="150" y="13" width="70" height="32"/>
+                    <rect key="frame" x="146" y="-7" width="70" height="32"/>
                     <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9yc-Ji-Bcv">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -36,7 +35,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r5N-4A-e7V">
-                    <rect key="frame" x="78" y="13" width="76" height="32"/>
+                    <rect key="frame" x="74" y="-7" width="76" height="32"/>
                     <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ciz-wY-83Y">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -47,14 +46,14 @@
                 </button>
             </subviews>
             <constraints>
+                <constraint firstItem="wW5-3P-XUX" firstAttribute="leading" secondItem="r5N-4A-e7V" secondAttribute="trailing" constant="8" id="AM0-9c-gOQ"/>
                 <constraint firstItem="KU6-MB-4x2" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="2" id="AfO-ab-vWV"/>
-                <constraint firstAttribute="trailing" secondItem="KU6-MB-4x2" secondAttribute="trailing" constant="18" id="Fst-pa-L2p"/>
+                <constraint firstAttribute="trailing" secondItem="KU6-MB-4x2" secondAttribute="trailing" constant="32" id="Fst-pa-L2p"/>
+                <constraint firstItem="wW5-3P-XUX" firstAttribute="centerX" secondItem="KU6-MB-4x2" secondAttribute="centerX" constant="36" id="KiU-f3-Vyk"/>
                 <constraint firstItem="r5N-4A-e7V" firstAttribute="baseline" secondItem="wW5-3P-XUX" secondAttribute="baseline" id="MkQ-p0-SlC"/>
-                <constraint firstItem="KU6-MB-4x2" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="30" id="aFo-8G-i2m"/>
-                <constraint firstItem="r5N-4A-e7V" firstAttribute="trailing" secondItem="KU6-MB-4x2" secondAttribute="centerX" constant="-4" id="dNd-Pb-d6N"/>
+                <constraint firstItem="KU6-MB-4x2" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="aFo-8G-i2m"/>
                 <constraint firstItem="wW5-3P-XUX" firstAttribute="top" secondItem="KU6-MB-4x2" secondAttribute="bottom" constant="8" id="hCJ-ea-ahG"/>
-                <constraint firstAttribute="bottom" secondItem="wW5-3P-XUX" secondAttribute="bottom" constant="20" id="lnJ-Pb-F4O"/>
-                <constraint firstItem="wW5-3P-XUX" firstAttribute="leading" secondItem="KU6-MB-4x2" secondAttribute="centerX" constant="4" id="ork-j5-Yu4"/>
+                <constraint firstAttribute="bottom" secondItem="wW5-3P-XUX" secondAttribute="bottom" id="lnJ-Pb-F4O"/>
             </constraints>
             <point key="canvasLocation" x="-52" y="424.5"/>
         </customView>
