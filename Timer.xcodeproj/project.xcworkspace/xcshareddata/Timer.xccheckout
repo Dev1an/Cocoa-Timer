@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>506FAC87-93CC-4266-9DB8-BCB0804F7E05</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Timer</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D6097A617F9F07DE08793257CDED597468EE208A</key>
+		<string>https://github.com/Dev1an/Cocoa-Timer</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Timer.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D6097A617F9F07DE08793257CDED597468EE208A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Dev1an/Cocoa-Timer</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D6097A617F9F07DE08793257CDED597468EE208A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D6097A617F9F07DE08793257CDED597468EE208A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Timer</string>
+		</dict>
+	</array>
+</dict>
+</plist>
