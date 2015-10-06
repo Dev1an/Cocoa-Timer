@@ -1,4 +1,10 @@
 # Cocoa-Timer
 Timer &amp; stopwatch for apple devices
 
-Open the Timer project and not the workspace
+# Technologies
+ - Swift
+ - Cocoa
+ - Today view extension (Notification center widget)
+ - NSUserDefaults (NSCoding, NSUserDefaults)
+ - NSFormatter
+ - Custom framework
